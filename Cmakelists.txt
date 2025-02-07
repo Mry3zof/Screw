@@ -1,0 +1,42 @@
+cmake_minimum_required(VERSION 3.10)
+project(Screw)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# SFML path
+set(SFML_ROOT "${CMAKE_SOURCE_DIR}/lib/SFML")
+set(SFML_INCLUDE_DIR "${SFML_ROOT}/include")
+set(SFML_LIB_DIR "${SFML_ROOT}/lib")
+
+# collect source files
+file(GLOB_RECURSE SRC_FILES "src/*.cpp")
+file(GLOB_RECURSE HEADER_FILES "src/*.h" "src/*.hpp")
+
+# add executable
+add_executable(Screw ${SRC_FILES} ${HEADER_FILES})
+
+# ensure CMake re-runs if a new file is added
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+# include SFML headers
+target_include_directories(Screw PRIVATE ${SFML_INCLUDE_DIR} ${SOURCE_DIR})
+
+# link SFML libraries
+target_link_directories(Screw PRIVATE ${SFML_LIB_DIR})
+
+# debug postfix for Windows
+if(WIN32)
+    set(SFML_DEBUG_POSTFIX "-d")
+endif()
+
+# link appropriate libraries based on build type
+target_link_libraries(Screw PRIVATE
+    debug sfml-system${SFML_DEBUG_POSTFIX}
+    debug sfml-window${SFML_DEBUG_POSTFIX}
+    debug sfml-graphics${SFML_DEBUG_POSTFIX}
+    debug sfml-audio${SFML_DEBUG_POSTFIX}
+    optimized sfml-system
+    optimized sfml-window
+    optimized sfml-graphics
+    optimized sfml-audio
+)
