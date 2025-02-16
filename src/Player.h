@@ -1,6 +1,5 @@
 #pragma once
-#ifndef PLAYER_H
-#define PLAYER_H
+
 
 #include <vector>
 #include <string>
@@ -10,6 +9,8 @@ class Player {
 private:
     std::string name;
     std::vector<Card> hand;
+    std::unique_ptr<Card> drawn_card;
+    std::unique_ptr<Card> Hold_card;
 
 public:
     Player(std::string name);
@@ -20,4 +21,4 @@ public:
     std::vector<Card>& getHand() ;
 };
 
-#endif
+

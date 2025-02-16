@@ -1,26 +1,26 @@
 #pragma once
-#ifndef CLASSICMODE_H
-#define CLASSICMODE_H
 
 #include "GameState.h"
 #include "Deck.h"
 #include "Player.h"
 #include <vector>
+#include "Button.h"
 
 class ClassicMode : public GameState {
 private:
     Deck deck;
     std::vector<Player> players;
     int currentPlayerIndex;
+    Button BasraButton;
 
 public:
-    ClassicMode(int numPlayers);
+    ClassicMode();
 
     void handleInput(sf::Event event) override;
     void update() override;
     void render(sf::RenderWindow& window) override;
-    void BeginDraw(int numPlayers);
+
+    void Basra();
 };
 
-#endif
 
